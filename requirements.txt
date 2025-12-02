@@ -3,4 +3,9 @@ pandas
 numpy
 python-dateutil
 tqdm
+seaborn 
+textblob 
+nltk 
+scikit-learn
+
 
