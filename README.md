@@ -260,3 +260,26 @@ Deliverables:
 - figures/ with plotted PNGs
 - output/kpi_summary.csv and top_keywords_per_bank.csv
 - schema.sql and pg_dump in repo
+
+Database Schema
+
+This project uses a relational PostgreSQL database consisting of two main tables: banks and reviews. These tables store normalized banking review data collected from external sources (e.g., Google Play Store).
+
+1. banks Table
+Column	Type	Constraints	Description
+id	SERIAL	PRIMARY KEY	Unique identifier for each bank
+bank_name	TEXT	UNIQUE, NOT NULL	Name of the bank
+Create Statement
+CREATE TABLE banks (
+    id SERIAL PRIMARY KEY,
+    bank_name TEXT UNIQUE NOT NULL
+);
+
+2. reviews Table
+Column	Type	Constraints	Description
+id	SERIAL	PRIMARY KEY	Unique review identifier
+bank_id	INT	REFERENCES banks(id), NOT NULL	Foreign key to banks table
+review_text	TEXT	NOT NULL	Cleaned review content
+rating	FLOAT	CHECK (rating >= 0 AND rating <= 5)	Review rating (0–5 scale)
+review_date	DATE		Date when the review was posted
+source	TEXT		Platform where the review was collected
